@@ -1,0 +1,29 @@
+{
+  "name": "rgr-pluralsight",
+  "version": "1.0.0",
+  "description": "Following along with a Pluralsight course.",
+  "scripts": {
+    "start": "./node_modules/.bin/babel-node server.js"
+  },
+  "author": "Devin Miller",
+  "license": "ISC",
+  "dependencies": {
+    "event": "^1.0.0",
+    "events": "^1.1.0",
+    "express": "^4.13.3",
+    "flux": "^2.1.1",
+    "jquery": "^2.2.0",
+    "kerberos": "0.0.17",
+    "mongodb": "^2.1.4",
+    "react": "^0.14.6",
+    "react-dom": "^0.14.6"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.4.0",
+    "babel-core": "^6.4.0",
+    "babel-loader": "^6.2.1",
+    "babel-preset-es2015": "^6.3.13",
+    "babel-preset-react": "^6.3.13",
+    "webpack": "^1.12.11"
+  }
+}
