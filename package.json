@@ -11,7 +11,9 @@
     "event": "^1.0.0",
     "events": "^1.1.0",
     "express": "^4.13.3",
+    "express-graphql": "^0.4.5",
     "flux": "^2.1.1",
+    "graphql": "^0.4.14",
     "jquery": "^2.2.0",
     "kerberos": "0.0.17",
     "mongodb": "^2.1.4",
@@ -24,6 +26,7 @@
     "babel-loader": "^6.2.1",
     "babel-preset-es2015": "^6.3.13",
     "babel-preset-react": "^6.3.13",
+    "babel-preset-stage-0": "^6.3.13",
     "webpack": "^1.12.11"
   }
 }
