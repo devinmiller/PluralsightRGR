@@ -42260,7 +42260,196 @@
   \*********************************/
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
+	'use strict';
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	
+	var _react = __webpack_require__(/*! react */ 1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactRelay = __webpack_require__(/*! react-relay */ 159);
+	
+	var _reactRelay2 = _interopRequireDefault(_reactRelay);
+	
+	var _link = __webpack_require__(/*! ./link */ 385);
+	
+	var _link2 = _interopRequireDefault(_link);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var Main = function (_React$Component) {
+	    _inherits(Main, _React$Component);
+	
+	    function Main() {
+	        var _Object$getPrototypeO;
+	
+	        var _temp, _this, _ret;
+	
+	        _classCallCheck(this, Main);
+	
+	        for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+	            args[_key] = arguments[_key];
+	        }
+	
+	        return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_Object$getPrototypeO = Object.getPrototypeOf(Main)).call.apply(_Object$getPrototypeO, [this].concat(args))), _this), _this.setLimit = function (e) {
+	            var newLimit = Number(e.target.value);
+	            _this.props.relay.setVariables({ limit: newLimit });
+	        }, _temp), _possibleConstructorReturn(_this, _ret);
+	    }
+	
+	    _createClass(Main, [{
+	        key: 'render',
+	        value: function render() {
+	            var content = this.props.store.linkConnection.edges.map(function (edge) {
+	                return _react2.default.createElement(_link2.default, { key: edge.node.id, link: edge.node });
+	            });
+	            return _react2.default.createElement(
+	                'div',
+	                null,
+	                _react2.default.createElement(
+	                    'h3',
+	                    null,
+	                    'Links'
+	                ),
+	                _react2.default.createElement(
+	                    'select',
+	                    { onChange: this.setLimit },
+	                    _react2.default.createElement(
+	                        'option',
+	                        { value: '3' },
+	                        '3'
+	                    ),
+	                    _react2.default.createElement(
+	                        'option',
+	                        { value: '5', selected: true },
+	                        '5'
+	                    )
+	                ),
+	                _react2.default.createElement(
+	                    'ul',
+	                    null,
+	                    content
+	                )
+	            );
+	        }
+	    }]);
+	
+	    return Main;
+	}(_react2.default.Component);
+	
+	Main = _reactRelay2.default.createContainer(Main, {
+	    initialVariables: {
+	        limit: 5
+	    },
+	    fragments: {
+	        store: function store() {
+	            return function (RQL_0) {
+	                return {
+	                    children: [{
+	                        calls: [{
+	                            kind: 'Call',
+	                            metadata: {},
+	                            name: 'first',
+	                            value: {
+	                                kind: 'CallVariable',
+	                                callVariableName: 'limit'
+	                            }
+	                        }],
+	                        children: [{
+	                            children: [{
+	                                children: [{
+	                                    fieldName: 'id',
+	                                    kind: 'Field',
+	                                    metadata: {
+	                                        isRequisite: true
+	                                    },
+	                                    type: 'ID'
+	                                }, _reactRelay2.default.QL.__frag(RQL_0)],
+	                                fieldName: 'node',
+	                                kind: 'Field',
+	                                metadata: {
+	                                    isRequisite: true
+	                                },
+	                                type: 'Link'
+	                            }, {
+	                                fieldName: 'cursor',
+	                                kind: 'Field',
+	                                metadata: {
+	                                    isGenerated: true,
+	                                    isRequisite: true
+	                                },
+	                                type: 'String'
+	                            }],
+	                            fieldName: 'edges',
+	                            kind: 'Field',
+	                            metadata: {
+	                                isPlural: true
+	                            },
+	                            type: 'LinkEdge'
+	                        }, {
+	                            children: [{
+	                                fieldName: 'hasNextPage',
+	                                kind: 'Field',
+	                                metadata: {
+	                                    isGenerated: true,
+	                                    isRequisite: true
+	                                },
+	                                type: 'Boolean'
+	                            }, {
+	                                fieldName: 'hasPreviousPage',
+	                                kind: 'Field',
+	                                metadata: {
+	                                    isGenerated: true,
+	                                    isRequisite: true
+	                                },
+	                                type: 'Boolean'
+	                            }],
+	                            fieldName: 'pageInfo',
+	                            kind: 'Field',
+	                            metadata: {
+	                                isGenerated: true,
+	                                isRequisite: true
+	                            },
+	                            type: 'PageInfo'
+	                        }],
+	                        fieldName: 'linkConnection',
+	                        kind: 'Field',
+	                        metadata: {
+	                            isConnection: true
+	                        },
+	                        type: 'LinkConnection'
+	                    }],
+	                    kind: 'Fragment',
+	                    metadata: {},
+	                    name: 'Main',
+	                    type: 'Store'
+	                };
+	            }(_link2.default.getFragment('link'));
+	        }
+	    }
+	});
+	
+	exports.default = Main;
+
+/***/ },
+/* 385 */
+/*!*********************************!*\
+  !*** ./app/components/link.jsx ***!
+  \*********************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
 	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 	
@@ -42284,97 +42473,70 @@
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
-	var Main = function (_React$Component) {
-	    _inherits(Main, _React$Component);
+	var Link = function (_React$Component) {
+	    _inherits(Link, _React$Component);
 	
-	    function Main() {
-	        _classCallCheck(this, Main);
+	    function Link() {
+	        _classCallCheck(this, Link);
 	
-	        return _possibleConstructorReturn(this, Object.getPrototypeOf(Main).apply(this, arguments));
+	        return _possibleConstructorReturn(this, Object.getPrototypeOf(Link).apply(this, arguments));
 	    }
 	
-	    _createClass(Main, [{
-	        key: "render",
+	    _createClass(Link, [{
+	        key: 'render',
 	        value: function render() {
-	            console.log(this.props);
-	            var content = this.props.store.links.slice(0, this.props.limit).map(function (link) {
-	                return _react2.default.createElement(
-	                    "li",
-	                    { key: link._id },
-	                    _react2.default.createElement(
-	                        "a",
-	                        { href: link.url },
-	                        link.title
-	                    )
-	                );
-	            });
+	            var link = this.props.link;
+	
 	            return _react2.default.createElement(
-	                "div",
+	                'li',
 	                null,
 	                _react2.default.createElement(
-	                    "h3",
-	                    null,
-	                    "Links"
-	                ),
-	                _react2.default.createElement(
-	                    "ul",
-	                    null,
-	                    content
+	                    'a',
+	                    { href: link.url },
+	                    link.title
 	                )
 	            );
 	        }
 	    }]);
 	
-	    return Main;
+	    return Link;
 	}(_react2.default.Component);
 	
-	Main.propTypes = {
-	    limit: _react2.default.PropTypes.number
-	};
-	Main.defaultProps = {
-	    limit: 3
-	};
-	
-	Main = _reactRelay2.default.createContainer(Main, {
+	Link = _reactRelay2.default.createContainer(Link, {
 	    fragments: {
-	        store: function store() {
+	        link: function link() {
 	            return function () {
 	                return {
 	                    children: [{
-	                        children: [{
-	                            fieldName: "_id",
-	                            kind: "Field",
-	                            metadata: {},
-	                            type: "String"
-	                        }, {
-	                            fieldName: "url",
-	                            kind: "Field",
-	                            metadata: {},
-	                            type: "String"
-	                        }, {
-	                            fieldName: "title",
-	                            kind: "Field",
-	                            metadata: {},
-	                            type: "String"
-	                        }],
-	                        fieldName: "links",
-	                        kind: "Field",
+	                        fieldName: 'url',
+	                        kind: 'Field',
+	                        metadata: {},
+	                        type: 'String'
+	                    }, {
+	                        fieldName: 'title',
+	                        kind: 'Field',
+	                        metadata: {},
+	                        type: 'String'
+	                    }, {
+	                        fieldName: 'id',
+	                        kind: 'Field',
 	                        metadata: {
-	                            isPlural: true
+	                            isGenerated: true,
+	                            isRequisite: true
 	                        },
-	                        type: "Link"
+	                        type: 'ID'
 	                    }],
-	                    kind: "Fragment",
+	                    kind: 'Fragment',
 	                    metadata: {},
-	                    name: "Main",
-	                    type: "Store"
+	                    name: 'Link',
+	                    type: 'Link'
 	                };
 	            }();
 	        }
 	    }
 	});
 	
-	exports.default = Main;
+	exports.default = Link;
 
 /***/ }
 /******/ ]);
