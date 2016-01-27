@@ -11,6 +11,7 @@ let app = express();
 app.use(express.static('public'));
 
 (async () => {
+    try {
     let db = await MongoClient.connect(process.env.MONGO_URL);
     let schema = Schema(db);
     
@@ -27,4 +28,8 @@ app.use(express.static('public'));
         
         console.log('JSON schema create.')
     });
+    
+    } catch(e) {
+        console.log(e);
+    }
 })();
