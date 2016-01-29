@@ -15,10 +15,10 @@ class Link extends React.Component {
     render() {
         let {link} = this.props;
         return (
-            <li> 
-                <span>{this.dateLabel()}</span>
-                <a href={link.url}>{link.title}</a>
-            </li>
+            <a className="list-group-item" href={link.url}>
+                {link.title}
+                <span className="badge">{this.dateLabel()}</span>
+            </a>
         );
     };
 }

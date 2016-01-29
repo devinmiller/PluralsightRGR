@@ -33,6 +33,6 @@
     "babel-preset-stage-0": "^6.3.13",
     "babel-relay-plugin": "^0.6.3",
     "nodemon": "^1.8.1",
-    "webpack": "^1.12.11"
+    "webpack": "^1.12.12"
   }
 }

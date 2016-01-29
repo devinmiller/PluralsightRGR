@@ -9602,6 +9602,7 @@
 	 */
 	var EventInterface = {
 	  type: null,
+	  target: null,
 	  // currentTarget is set when dispatching; no use in copying it here
 	  currentTarget: emptyFunction.thatReturnsNull,
 	  eventPhase: null,
@@ -9635,8 +9636,6 @@
 	  this.dispatchConfig = dispatchConfig;
 	  this.dispatchMarker = dispatchMarker;
 	  this.nativeEvent = nativeEvent;
-	  this.target = nativeEventTarget;
-	  this.currentTarget = nativeEventTarget;
 	
 	  var Interface = this.constructor.Interface;
 	  for (var propName in Interface) {
@@ -9647,7 +9646,11 @@
 	    if (normalize) {
 	      this[propName] = normalize(nativeEvent);
 	    } else {
-	      this[propName] = nativeEvent[propName];
+	      if (propName === 'target') {
+	        this.target = nativeEventTarget;
+	      } else {
+	        this[propName] = nativeEvent[propName];
+	      }
 	    }
 	  }
 	
@@ -13592,7 +13595,10 @@
 	      }
 	    });
 	
-	    nativeProps.children = content;
+	    if (content) {
+	      nativeProps.children = content;
+	    }
+	
 	    return nativeProps;
 	  }
 	
@@ -19176,7 +19182,7 @@
 	
 	'use strict';
 	
-	module.exports = '0.14.6';
+	module.exports = '0.14.7';
 
 /***/ },
 /* 147 */
@@ -42308,9 +42314,12 @@
 	    function Main(props) {
 	        _classCallCheck(this, Main);
 	
+	        //this.search = debounce(this.search, 300);
+	
 	        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Main).call(this, props));
 	
 	        _this.search = function (e) {
+	            e.persist();
 	            var query = e.target.value;
 	            _this.props.relay.setVariables({
 	                query: query
@@ -42333,7 +42342,6 @@
 	            _this.refs.newUrl.value = '';
 	        };
 	
-	        _this.search = (0, _lodash.debounce)(_this.search, 300);
 	        return _this;
 	    }
 	
@@ -42345,44 +42353,84 @@
 	            });
 	            return _react2.default.createElement(
 	                'div',
-	                null,
+	                { className: 'row' },
 	                _react2.default.createElement(
-	                    'h3',
-	                    null,
-	                    'Links'
-	                ),
-	                _react2.default.createElement(
-	                    'form',
-	                    { onSubmit: this.handleSubmit },
-	                    _react2.default.createElement('input', { type: 'text', placeholder: 'Title', ref: 'newTitle' }),
-	                    _react2.default.createElement('input', { type: 'text', placeholder: 'Url', ref: 'newUrl' }),
+	                    'div',
+	                    { className: 'col-md-12' },
 	                    _react2.default.createElement(
-	                        'button',
-	                        { type: 'submit' },
-	                        'Add'
-	                    )
-	                ),
-	                'Showing:  ',
-	                _react2.default.createElement('input', { type: 'text', placeholder: 'Search', onChange: this.search }),
-	                _react2.default.createElement(
-	                    'select',
-	                    { onChange: this.setLimit,
-	                        defaultValue: this.props.relay.variables.limit },
-	                    _react2.default.createElement(
-	                        'option',
-	                        { value: '10' },
-	                        '10'
+	                        'div',
+	                        { className: 'row' },
+	                        _react2.default.createElement(
+	                            'div',
+	                            { className: 'col-md-12' },
+	                            _react2.default.createElement(
+	                                'h3',
+	                                null,
+	                                'Links'
+	                            ),
+	                            _react2.default.createElement(
+	                                'form',
+	                                { className: 'form-inline', onSubmit: this.handleSubmit },
+	                                _react2.default.createElement(
+	                                    'div',
+	                                    { className: 'form-group' },
+	                                    _react2.default.createElement('input', { type: 'text', placeholder: 'Title', ref: 'newTitle', className: 'form-control' })
+	                                ),
+	                                _react2.default.createElement(
+	                                    'div',
+	                                    { className: 'form-group' },
+	                                    _react2.default.createElement('input', { type: 'text', placeholder: 'Url', ref: 'newUrl', className: 'form-control' })
+	                                ),
+	                                _react2.default.createElement(
+	                                    'button',
+	                                    { className: 'btn btn-default', type: 'submit' },
+	                                    'Add'
+	                                )
+	                            )
+	                        )
 	                    ),
 	                    _react2.default.createElement(
-	                        'option',
-	                        { value: '20' },
-	                        '20'
+	                        'div',
+	                        { className: 'row' },
+	                        _react2.default.createElement(
+	                            'div',
+	                            { className: 'col-md-12' },
+	                            _react2.default.createElement(
+	                                'div',
+	                                { className: 'form-inline' },
+	                                'Showing:  ',
+	                                _react2.default.createElement('input', { type: 'text', placeholder: 'Search', onChange: this.search, className: 'form-control' }),
+	                                _react2.default.createElement(
+	                                    'select',
+	                                    { className: 'form-control', onChange: this.setLimit,
+	                                        defaultValue: this.props.relay.variables.limit },
+	                                    _react2.default.createElement(
+	                                        'option',
+	                                        { value: '10' },
+	                                        '10'
+	                                    ),
+	                                    _react2.default.createElement(
+	                                        'option',
+	                                        { value: '20' },
+	                                        '20'
+	                                    )
+	                                )
+	                            )
+	                        )
+	                    ),
+	                    _react2.default.createElement(
+	                        'div',
+	                        { className: 'row' },
+	                        _react2.default.createElement(
+	                            'div',
+	                            { className: 'col-md-12' },
+	                            _react2.default.createElement(
+	                                'div',
+	                                { className: 'list-group' },
+	                                content
+	                            )
+	                        )
 	                    )
-	                ),
-	                _react2.default.createElement(
-	                    'ul',
-	                    null,
-	                    content
 	                )
 	            );
 	        }
@@ -57028,17 +57076,13 @@
 	            var link = this.props.link;
 	
 	            return _react2.default.createElement(
-	                'li',
-	                null,
+	                'a',
+	                { className: 'list-group-item', href: link.url },
+	                link.title,
 	                _react2.default.createElement(
 	                    'span',
-	                    null,
+	                    { className: 'badge' },
 	                    this.dateLabel()
-	                ),
-	                _react2.default.createElement(
-	                    'a',
-	                    { href: link.url },
-	                    link.title
 	                )
 	            );
 	        }
